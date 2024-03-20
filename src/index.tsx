@@ -1,4 +1,6 @@
-import { createEffect, createSignal, mergeProps, splitProps, onMount, Component, Show, For } from 'solid-js';
+import { createEffect, createSignal, mergeProps, splitProps, onMount, Component, Show, For, JSXElement, JSX } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
+
 import { Option } from  './Option';
 import './MultiSelect.css';
 
@@ -27,6 +29,7 @@ export interface IMultiSelectProps {
     selectedValues?: Option[];
     isObject?: boolean;
     displayValue?: string;
+    renderValue?: ( option: Option ) => JSX.Element
     showCheckbox?: boolean;
     selectionLimit?: number;
     placeholder?: string;
@@ -87,6 +90,7 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
     {
         const isObject = props.isObject || false;
         const displayValue = props.displayValue;
+        const renderValue = props.renderValue;
         const showCheckbox = props.showCheckbox;
         const style = props.style;
         const singleSelect = props.singleSelect;
@@ -113,7 +117,11 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
                                             checked={isSelectedValue( option )}
                                         />
                                     </Show>
-                                    {isObject ? option[displayValue] : ( option || '' ).toString()}
+                                    {
+                                        isObject ? (
+                                            <Dynamic component={() => renderValue( option )} />
+                                        ) : ( option || '' ).toString()
+                                    }
                                 </li>
                             }
                         </For>
@@ -380,10 +388,8 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
                                 checked={isSelectedValue( option )}
                             />
                         </Show>
-                        <Show when={props.isObject}
-                            fallback={ () => ( option || '' ).toString()}
-                        >
-                            {option[props.displayValue]}
+                        <Show when={props.isObject} fallback={( option || '' ).toString()}>
+                              <Dynamic component={() => props.renderValue!(option)} />
                         </Show>
                     </li>}
             </For>
@@ -565,10 +571,10 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
                         }}
                         style={props.style['chips']}
                     >
-                        {!props.isObject ? ( value || '' ).toString() : value[props.displayValue]}
+                        {!props.isObject ? ( value || '' ).toString() : <Dynamic component={() => props.renderValue!(value)} />}
                         <Show when={!isDisablePreSelectedValues( value )}>
                             <Show when={!props.customCloseIcon}
-                                fallback={() => <i class="custom-close" onClick={() => onRemoveSelectedItem( value )}>{props.customCloseIcon}</i>}
+                                fallback={<i class="custom-close" onClick={() => onRemoveSelectedItem( value )}>{props.customCloseIcon}</i>}
                             >
                                 <img
                                     class="icon_cancel closeIcon"
