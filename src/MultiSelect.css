@@ -59,11 +59,13 @@
 }
 
 .closeIcon {
-  height: 13px;
-  width: 13px;
+  width: 10px;
   float: right;
-  margin-left: 5px;
+  margin-left: 8px;
   cursor: pointer;
+  font-size: 20px;
+  color: #474747;
+  padding-bottom: 6.5px
 }
 
 .optionListContainer {

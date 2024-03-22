@@ -1,4 +1,4 @@
-import { createEffect, createSignal, mergeProps, splitProps, onMount, Component, Show, For, JSXElement, JSX } from 'solid-js';
+import { createEffect, createSignal, mergeProps, splitProps, onMount, Component, Show, For, JSX, Setter } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import { Option } from  './Option';
@@ -23,7 +23,12 @@ const defaultProps = {
     {}
 };
 
+export interface Ref {
+  values: () => Option[]
+}
+
 export interface IMultiSelectProps {
+    ref: Setter<any>
     options: Option[];
     disablePreSelectedValues?: boolean;
     selectedValues?: Option[];
@@ -81,6 +86,13 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
     const [ closeIconType, setCloseIconType ] = createSignal( closeIconTypes[props.closeIcon] || closeIconTypes['circle'] );
     const [ groupedObject, setGroupedObject ] = createSignal( [] );
 
+    onMount(() => {
+      if (props.ref) {
+        props.ref({
+          'values': () => selectedValues() 
+        })
+      }
+    })
 
     let optionTimeout: number;
     let searchBox: HTMLInputElement;
@@ -306,8 +318,8 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
             index = newSelectedValues.indexOf( item );
         }
         newSelectedValues.splice( index, 1 );
-        props.onRemove( newSelectedValues, item );
         setSelectedValues( newSelectedValues );
+        props.onRemove( newSelectedValues, item );
         if ( !props.showCheckbox )
         {
             removeSelectedValuesFromOptions( true );
@@ -343,9 +355,8 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
 
         const newValuesSelected: Option[] = [ ...selectedValues(), item ];
 
-        props.onSelect( newValuesSelected, item );
-
         setSelectedValues( newValuesSelected );
+        props.onSelect( newValuesSelected, item );
 
         if ( !props.showCheckbox )
         {
@@ -576,11 +587,7 @@ export const MultiSelect: Component<IMultiSelectProps> = ( props: IMultiSelectPr
                             <Show when={!props.customCloseIcon}
                                 fallback={<i class="custom-close" onClick={() => onRemoveSelectedItem( value )}>{props.customCloseIcon}</i>}
                             >
-                                <img
-                                    class="icon_cancel closeIcon"
-                                    src={closeIconType()}
-                                    onClick={() => onRemoveSelectedItem( value )}
-                                />
+                                <span class="icon_cancel closeIcon" onClick={() => onRemoveSelectedItem( value )}>⨯</span>
                             </Show>
                         </Show>
                     </span>}
