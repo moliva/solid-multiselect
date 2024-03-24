@@ -18,7 +18,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=20.0",
     "yarn": ">=1.22.5"
   },
   "keywords": [
@@ -44,10 +44,10 @@
   "author": "DigiChanges <https://www.linkedin.com/company/digichanges>",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.12.0",
-    "@typescript-eslint/parser": "^5.12.0",
-    "eslint": "^8.0.1",
-    "eslint-plugin-solid": "^0.1.2",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-solid": "^0.13.2",
     "nodemon": "^2.0.15",
     "typescript": "^5.1.3"
   },

@@ -1,7 +1,3 @@
-/* *, ::after, ::before {
-    box-sizing: border-box;
-} */
-
 .multiSelectContainer {
   position: relative;
   text-align: left;
