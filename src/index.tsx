@@ -33,7 +33,7 @@ export interface Ref<T> {
     values: () => T[]
 }
 
-export interface IMultiSelectProps<T> {
+export interface MultiSelectProps<T> {
     ref: Setter<Ref<T>>
     options: T[];
     disablePreSelectedValues?: boolean;
@@ -65,7 +65,7 @@ export interface IMultiSelectProps<T> {
     customCloseIcon?: Element | string;
 }
 
-export function MultiSelect<T> (props: IMultiSelectProps<T>) {
+export function MultiSelect<T> (props: MultiSelectProps<T>) {
     props = mergeProps(defaultProps, props)
 
     const [local] = splitProps(props, ['placeholder', 'style', 'singleSelect', 'id', 'hidePlaceholder', 'disable', 'showArrow', 'avoidHighlightFirstOption'])
@@ -551,5 +551,3 @@ export function MultiSelect<T> (props: IMultiSelectProps<T>) {
 
     return renderMultiSelectContainer()
 }
-
-export default MultiSelect

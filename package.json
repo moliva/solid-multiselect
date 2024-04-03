@@ -1,15 +1,15 @@
 {
-  "name": "@digichanges/solid-multiselect",
-  "version": "0.0.9",
+  "name": "@moliva/solid-multiselect",
+  "version": "0.1.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/digichanges/solid-multiselect.git"
+    "url": "https://github.com/moliva/solid-multiselect.git"
   },
   "bugs": {
-    "url": "https://github.com/DigiChanges/solid-multiselect/issues"
+    "url": "https://github.com/moliva/solid-multiselect/issues"
   },
-  "homepage": "https://github.com/DigiChanges/solid-multiselect#readme",
+  "homepage": "https://github.com/moliva/solid-multiselect#readme",
   "main": "dist/index.jsx",
   "module": "dist/index.jsx",
   "types": "dist/index.d.ts",
@@ -41,7 +41,7 @@
     "lint": "eslint --ext ts,tsx --max-warnings 0 --cache src",
     "watch": "nodemon --watch src --exec \"yarn build\""
   },
-  "author": "DigiChanges <https://www.linkedin.com/company/digichanges>",
+  "author": "moliva based on original from DigiChanges <https://www.linkedin.com/company/digichanges>",
   "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.3.1",
