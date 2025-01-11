@@ -15,7 +15,7 @@ const defaultProps = {
     onSelect: () => { },
     onRemove: () => { }
 };
-export function MultiSelect(props) {
+export default function MultiSelect(props) {
     props = mergeProps(defaultProps, props);
     const [local] = splitProps(props, ['placeholder', 'style', 'singleSelect', 'id', 'hidePlaceholder', 'disable', 'showArrow', 'avoidHighlightFirstOption']);
     const { placeholder, style, singleSelect, id, hidePlaceholder, disable, showArrow, avoidHighlightFirstOption } = local;
@@ -190,7 +190,7 @@ export function MultiSelect(props) {
         }
     };
     const onSelectItem = (item) => () => {
-        if (!keepSearchTerm) {
+        if (!keepSearchTerm()) {
             setInputValue('');
         }
         if (singleSelect) {
@@ -380,4 +380,3 @@ export function MultiSelect(props) {
     }
     return renderMultiSelectContainer();
 }
-export default MultiSelect;

@@ -3,7 +3,7 @@ import './MultiSelect.css';
 export interface Ref<T> {
     values: () => T[];
 }
-export interface IMultiSelectProps<T> {
+export interface MultiSelectProps<T> {
     ref: Setter<Ref<T>>;
     options: T[];
     disablePreSelectedValues?: boolean;
@@ -34,5 +34,4 @@ export interface IMultiSelectProps<T> {
     loadingMessage?: string;
     customCloseIcon?: Element | string;
 }
-export declare function MultiSelect<T>(props: IMultiSelectProps<T>): JSX.Element;
-export default MultiSelect;
+export default function MultiSelect<T>(props: MultiSelectProps<T>): JSX.Element;
