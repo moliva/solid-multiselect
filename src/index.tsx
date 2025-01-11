@@ -65,7 +65,7 @@ export interface MultiSelectProps<T> {
     customCloseIcon?: Element | string;
 }
 
-export function MultiSelect<T> (props: MultiSelectProps<T>) {
+export default function MultiSelect<T> (props: MultiSelectProps<T>) {
     props = mergeProps(defaultProps, props)
 
     const [local] = splitProps(props, ['placeholder', 'style', 'singleSelect', 'id', 'hidePlaceholder', 'disable', 'showArrow', 'avoidHighlightFirstOption'])
@@ -287,7 +287,7 @@ export function MultiSelect<T> (props: MultiSelectProps<T>) {
     }
 
     const onSelectItem = (item: T) => () => {
-        if (!keepSearchTerm) {
+        if (!keepSearchTerm()) {
             setInputValue('')
         }
         if (singleSelect) {
